@@ -67,10 +67,3 @@ alias ssh='ssh -X'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
-alias rm='~/bin/trashit'
-alias trash='~/bin/trashit'
-
-alias homeshick="source $HOME/.homesick/repos/homeshick/bin/homeshick.sh"
-
-alias uni="cd /cygdrive/c/Users/shaananc/Dropbox/Uni/Year\ 3/Semester\ 2"
