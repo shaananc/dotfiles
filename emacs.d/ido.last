@@ -1,0 +1,37 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/shaananc/gopath/src/shaananc/" . "selectors/")
+ ("/home/shaananc/gopath/src/" . "shaananc/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/shaananc/gopath/src/shaananc/selectors/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "random_dup.go"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/shaananc/gopath/src/shaananc/selectors/" (22102 14957 538402 889000) "../" "random_dup.go" "random_dup" "random_dup_test.go" "./" "random_dup_test.go~" "random_dup.go~" "cprof")
+
+ ("/home/shaananc/gopath/src/shaananc/" (22100 37395 44900 725000) "../" "./" "selectors/" "benchmarks/")
+
+ ("/home/shaananc/gopath/src/" (22100 37395 44900 725000) "../" "golang.org/" "./" "github.com/" "shaananc/" "gopkg.in/")
+
+ ("/home/shaananc/gopath/src/github.com/" (22104 37332 490874 679000) "zmap/" "dadrian/" "../" "garyburd/" "./" "golang/" "mediocregopher/" "ltv511/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/" (22104 37332 506874 679000) "../" "dpi/" "stringutil/" "./" "hello/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" (22104 41303 898783 365000) "../" "main" "flow.go~" "dpi" "flow/" "./" "main.go" "main.go~" "report.xml" "summary.go" "tcpflow")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/" (22104 42798 978748 988000) "prf.go" "../" "cipher_suites.go" "cipher_suites_test.go" "key_agreement.go" "ticket.go" "ztls_heartbeat.go" "flow.go~" "ztls_ka.go" "tls_test.go" "handshake_test.go" "conn.go" "testdata/" "ztls_handshake.go" "common.go" "handshake_messages_test.go" "conn_test.go" "ztls_handshake_test.go" "config.go" "handshake_client_test.go" "prf_test.go" "cipher_suites.go~" "example_test.go" "chacha20_poly1305.go" "handshake_server_test.go" "./" "tls.go" "handshake_messages.go" "flow.go" "handshake_server.go" "key_agreement.go~" "alert.go" "poly1305.go" "generate_cert.go" "chacha20_poly1305_test.go" "ztls_names.go" "ztls_handshake.go~" "handshake_client.go")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t
