@@ -2,22 +2,50 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/home/shaananc/" . ".emacs.d/")
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" . "flow/")
  ("/home/shaananc/gopath/src/shaananc/" . "selectors/")
  ("/home/shaananc/gopath/src/" . "shaananc/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/shaananc/gopath/src/github.com/research/upstream/dpi/tcpflow/src/"
+ "/home/shaananc/.emacs.d/"
+ "/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/"
+ "/home/shaananc/gopath/src/github.com/ltv511/dpi/"
  "/home/shaananc/gopath/src/shaananc/selectors/"
 )
 
 ;; ----- ido-work-file-list -----
 (
+ "tcpdemux.h"
+ "tcpdemux.cpp"
+ "init.el"
+ "flow.go"
+ "dpi.go"
  "random_dup.go"
+ "dpi_test.go"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/shaananc/gopath/src/github.com/research/upstream/dpi/tcpflow/src/" (22183 39748 514684 922000) "Makefile.in" "../" "zmq.hpp" "radiotap_old.c" "http-parser/" "be13_api/" "mime_map.h" "stest.cpp" "flow.cpp" "flow.o" "scan_wifiviz.cpp" "NOTES.txt" "zhelpers.hpp" ".deps/" "tcpdemux.cpp~" "scan_netviz.o" "dfxml/" "mime_map.cpp" "scan_netviz.cpp" "scan_http.cpp" "datalink_wifi.cpp" "datalink.cpp" "tcpflow.o" "datalink.o" "tcpdemux.cpp" "scan_tcpdemux.cpp" "iptree.h" "wifipcap/" "datalink_wifi.o" "hold/" "tcpip.cpp~" "tcpflow.h" "tcpip.h" "./" "scan_wifiviz.o" "Makefile.am" "scan_md5.cpp" "Makefile" "tcpdemux.h~" "pcap_writer.h" "tcpdemux.h" ".#tcpdemux.cpp" "netviz/" "inet_ntop.h" "tcpip.h~" "scan_md5.o" "tcpip.cpp" "mime_map.o" "scan_http.o" "intrusive_list.h" "util.o" "datalink_wifi.h" "scan_tcpdemux.o" "tcpflow" "util.cpp" "inet_ntop.c" "template_demo.cpp" "tcpflow.cpp" "tcpip.o")
+
+ ("/home/shaananc/.emacs.d/" (22119 1458 71494 486000) "elpa/" "../" "ido.last~" "auto-save-list/" "eshell/" "./" "init.el~" "init.el" "#init.el#" "ido.last")
+
+ ("/home/shaananc/" (22119 1446 639494 749000) ".antigen/" "../" ".ssh/" "start-ovs" ".gitconfig" ".cache/" ".gdbinit~" ".profile" "pennos/" ".zshrc" ".lesshst" "tmp/" ".nano_history" ".rediscli_history" ".zdata" "antigen.zsh" ".gnupg/" "go_1.5-godeb1_amd64.deb" ".gconf/" "upstream/" ".bash_history" ".gdbinit" "go_1.5.1-godeb1_amd64.deb" "./" "hello" "dotfiles_old/" ".dbus/" "main.o" ".zcompdump" "gotest/" ".zdata.1828" "pprof/" "dotfiles/" ".emacs.d/" ".rnd" ".w3m/" ".bashrc" ".bash_logout" "gopath/" "godeb" ".Xauthority" "main.c" ".tmux.conf" ".zsh_history" "p4/" "main.c~" ".config/" "upstream_out/" "make_pcaps/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/.git/" (22119 1446 847494 744000) "../" "COMMIT_EDITMSG" ".#COMMIT_EDITMSG" "objects/" "branches/" "MERGE_MSG" "index" "#COMMIT_EDITMSG#" "refs/" "hooks/" "description" "./" "FETCH_HEAD" "packed-refs" "ORIG_HEAD" "config" "HEAD" "info/" "logs/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/" (22113 44508 73147 851000) "prf.go" "../" "cipher_suites.go" "cipher_suites_test.go" "key_agreement.go" "ticket.go" "ztls_heartbeat.go" "flow.go~" "ztls_ka.go" "random_dup.go" "tls_test.go" "handshake_test.go" "conn.go" "testdata/" "ztls_handshake.go" "common.go" "handshake_messages_test.go" "conn_test.go" "ztls_handshake_test.go" "config.go" "handshake_client_test.go" "prf_test.go" "cipher_suites.go~" "example_test.go" "chacha20_poly1305.go" "handshake_server_test.go" "./" "selectors/" "tls.go" "handshake_messages.go" "flow.go" "handshake_server.go" "key_agreement.go~" "alert.go" "poly1305.go" "generate_cert.go" "chacha20_poly1305_test.go" "random_dup.go~" "ztls_names.go" "ztls_handshake.go~" "handshake_client.go")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" (22112 46172 154616 460000) "../" "dpi_test.go~" "flow.go~" ".git/" "profile.out" "dpi" "flow/" "./" "core" "selfflows.pcap" "makefile" "makefile~" "dpi.go" "summary.go" "dpi_test.go" "tcpflow.patch" "tcpflow" ".gitignore" "ssl.pcap")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/selectors/" (22112 46181 906616 235000) "../" "random_dup.go" "./" "random_dup.go~")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/selectors/" (22112 45945 930621 661000) "../" "random_dup.go" "./" "random_dup.go~")
+
  ("/home/shaananc/gopath/src/shaananc/selectors/" (22102 14957 538402 889000) "../" "random_dup.go" "random_dup" "random_dup_test.go" "./" "random_dup_test.go~" "random_dup.go~" "cprof")
 
  ("/home/shaananc/gopath/src/shaananc/" (22100 37395 44900 725000) "../" "./" "selectors/" "benchmarks/")
@@ -27,10 +55,6 @@
  ("/home/shaananc/gopath/src/github.com/" (22104 37332 490874 679000) "zmap/" "dadrian/" "../" "garyburd/" "./" "golang/" "mediocregopher/" "ltv511/")
 
  ("/home/shaananc/gopath/src/github.com/ltv511/" (22104 37332 506874 679000) "../" "dpi/" "stringutil/" "./" "hello/")
-
- ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" (22104 41303 898783 365000) "../" "main" "flow.go~" "dpi" "flow/" "./" "main.go" "main.go~" "report.xml" "summary.go" "tcpflow")
-
- ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/" (22104 42798 978748 988000) "prf.go" "../" "cipher_suites.go" "cipher_suites_test.go" "key_agreement.go" "ticket.go" "ztls_heartbeat.go" "flow.go~" "ztls_ka.go" "tls_test.go" "handshake_test.go" "conn.go" "testdata/" "ztls_handshake.go" "common.go" "handshake_messages_test.go" "conn_test.go" "ztls_handshake_test.go" "config.go" "handshake_client_test.go" "prf_test.go" "cipher_suites.go~" "example_test.go" "chacha20_poly1305.go" "handshake_server_test.go" "./" "tls.go" "handshake_messages.go" "flow.go" "handshake_server.go" "key_agreement.go~" "alert.go" "poly1305.go" "generate_cert.go" "chacha20_poly1305_test.go" "ztls_names.go" "ztls_handshake.go~" "handshake_client.go")
 )
 
 ;; ----- ido-unc-hosts-cache -----

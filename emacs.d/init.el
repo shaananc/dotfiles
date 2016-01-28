@@ -12,3 +12,16 @@
 
 (require 'ido)
 (ido-mode t)
+
+
+(fset 'yes-or-no-p 'y-or-n-p) ;; allow y/n answer to prompt
+
+(tooltip-mode -1) ;; tooltips in echo area
+(setq tooltip-use-echo-area t)
+
+;; disable vc-git
+(setq vc-handled-backends ())
+
+
+;; go fmt before save
+(add-hook 'before-save-hook #'gofmt-before-save)
