@@ -104,7 +104,7 @@ export PATH=$PATH:$GOPATH/bin
 alias diff="colordiff"
 alias df="df -H"
 alias du="du -ch"
-<<<<<<< HEAD
+
 [[ -s "/home/shaananc/.gvm/scripts/gvm" ]] && source "/home/shaananc/.gvm/scripts/gvm"
 export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
 alias grep=sift
