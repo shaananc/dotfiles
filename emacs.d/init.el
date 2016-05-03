@@ -26,3 +26,4 @@
 ;; go fmt before save
 (add-hook 'before-save-hook #'gofmt-before-save)
 (setq delete-old-versions t)
+

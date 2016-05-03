@@ -92,14 +92,24 @@ fi
 antigen bundle jdavis/zsh-files
 
 antigen apply
+
+
+export PATH=$PATH:/sbin
 export LESSOPEN="| ~/dotfiles/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 export EDITOR='emacs'
+export GOPATH='/home/shaananc/gopath'
+export PATH=$PATH:$GOPATH/bin
 
 alias diff="colordiff"
 alias df="df -H"
 alias du="du -ch"
+<<<<<<< HEAD
 [[ -s "/home/shaananc/.gvm/scripts/gvm" ]] && source "/home/shaananc/.gvm/scripts/gvm"
 export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
 alias grep=sift
 export GOPATH=~/gopath
+=======
+
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+>>>>>>> 2e299e5c97427b841426f448c3e6a571af39c0af
