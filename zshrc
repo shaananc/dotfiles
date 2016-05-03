@@ -109,7 +109,5 @@ alias du="du -ch"
 export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
 alias grep=sift
 export GOPATH=~/gopath
-=======
 
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
->>>>>>> 2e299e5c97427b841426f448c3e6a571af39c0af
