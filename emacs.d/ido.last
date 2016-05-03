@@ -1,0 +1,98 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/shaananc/upstream/benvds/" . "goexample/")
+ ("/home/shaananc/upstream/dpi/" . "flow/")
+ ("/home/shaananc/upstream/" . "benvds/")
+ ("/home/shaananc/snfs/cado-nfs/scripts/" . "cadofactor/")
+ ("/home/shaananc/snfs/cado-nfs/" . "scripts/")
+ ("/home/shaananc/juniper_paper/fortinet/" . "x9.13/")
+ ("/home/shaananc/" . ".emacs.d/")
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" . "flow/")
+ ("/home/shaananc/gopath/src/shaananc/" . "selectors/")
+ ("/home/shaananc/gopath/src/" . "shaananc/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/shaananc/upstream/benvds/goexample/"
+ "/home/shaananc/upstream/dpi/flow/"
+ "/home/shaananc/upstream/dpi/"
+ "/home/shaananc/snfs/cado-nfs/scripts/cadofactor/"
+ "/home/shaananc/subgroup/paper/"
+ "/home/shaananc/juniper_paper/fortinet/"
+ "/home/shaananc/gopath/src/github.com/research/upstream/dpi/tcpflow/src/"
+ "/home/shaananc/.emacs.d/"
+ "/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/"
+ "/home/shaananc/gopath/src/github.com/ltv511/dpi/"
+ "/home/shaananc/gopath/src/shaananc/selectors/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "example.go"
+ "flow.go"
+ "dpi.go"
+ "wudb.py"
+ "ssh.tex"
+ "x931_impl.py"
+ "tcpdemux.h"
+ "tcpdemux.cpp"
+ "init.el"
+ "random_dup.go"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/shaananc/upstream/dpi/" (22293 8838 291673 739000) "zmq_publisher.py~" "niometrics-tls-sample-1.pcap" "zmq_receiver.py~" "launch-redis.sh" "output.file" "redis/" "packet-c.cap" "README.md" "zmq_receiver.py" "zgrab" "setup.sh~" "dpi" "flow/" "libzmq/" "zmq_publisher.py" "tcpflow_output.bak" "tcpflow_output" "output.out" "dpi.go~" "setup.sh" "processing/" "redis-3.0.6/" "makefile" "makefile~" "niometrics-dpi-output.json.trunc" "dpi.go" "niometrics-tls-sample-1-repaired.pcap" "pprof.pdf" "README.md~" "report.xml" "summary.go" "dpi_test.go" "dpi_output" "cprof" "tcpflow/" ".gitignore" "../" "./")
+
+ ("/home/shaananc/upstream/dpi/flow/" (22293 10021 667646 529000) "../" "cipher_suites.go" "#selector.go#" "cipher_suites_test.go" "key_agreement.go" "flow.go~" "ztls_ka.go" "handshake_test.go" "testdata/" "selector.go~" "#handshake_messages_test.go#" "ztls_handshake.go" "common.go" "handshake_messages_test.go" "ztls_handshake_test.go" "config.go" "selector.go" "chacha20_poly1305.go" "./" "tcpflow_output" "handshake_messages.go" "flow.go" "alert.go" "poly1305.go" "chacha20_poly1305_test.go" "ztls_names.go")
+
+ ("/home/shaananc/upstream/" (22286 31824 25693 325000) "benvds/" "../" "src/" ".git/" "README.rst" ".gitmodules" "dpi/" "./" "nadia/" "ewust/" "lib/" "PF_RING/" "dcap/")
+
+ ("/home/shaananc/upstream/benvds/" (22292 60642 963989 463000) "ciphercount/" "../" "handshakes/" "goexample/" "zmq-routing/" "./" "loxctl/" "printer/" "module-tester/" "anonymizer/" "tls-subscriber/")
+
+ ("/home/shaananc/upstream/benvds/goexample/" (22293 7516 139704 139000) "../" "example.go" "messages/" "go-zmq-routing/" "output_directory/" "goexample" "messages.proto" "./" "Makefile" "example.go~")
+
+ ("/home/shaananc/snfs/cado-nfs/scripts/cadofactor/" (22266 52444 953318 207000) "cadoparams.py" "../" "wuserver.py~" "cadoprograms.py" "mysql-connector-python_2.1.3-1ubuntu14.04_all.deb" "workunit.py" "CHANGES" "workunit.pyc" "cadologger.py" "mysql-connector-python-py3_2.1.3-1ubuntu14.04_all.deb" "#upload.py#" "wudb.py.~265~" "upload.py" "wudb_mysql.py" "wuserver.py" "index.html" "parameters.oar" "wudb.py.~2~" "README" "parameters" "download/" "parameters.rsa512.oar" "./" "CMakeLists.txt" "cadocommand.py" "cadotask.py" "toplevel.py~" "wudb.py" "wudb-sqlite.py" "cadotask.py~" "toplevel.py" "wudb.py.~266~" "__pycache__/" "README.OAR" "upload.py~" "signalhandler.py" "patterns.py" "wudb.py.~1~" "verify.py")
+
+ ("/home/shaananc/snfs/cado-nfs/scripts/" (22261 24038 289505 718000) "poly_stats.py" "rsa704.test" "install-cmake.sh" "../" "magma-nmbrthry-wrapper.sh" "descent.py" "dist.sh" "gdb.py" "hintfile-helper.py" "cadofactor/" "magma-linalg-wrapper.sh" "typecast.py" "polsel_effort" "make_graphs" "badideals.mag" "build_environment.sh" "./" "refresh-gf2x.sh" "plot_sieve_region.py" "list_modified_files.sh" "version.sh" "realpath.sh" "opal-test/" "check_dup.py" "polsel_params.sage" "check_file_lists.pl" "make_size_opt.sh" "linalg.mag" "call_cmake.sh" "plot_params.sh" "split.py" "oar_start_clients.sh" "parse_found.py")
+
+ ("/home/shaananc/snfs/cado-nfs/" (22266 52157 357324 819000) "../" "params.c60~" "cado-nfs.py~" "sieve/" "README.dlp" "utils/" "sqrt/" "README.md" "files.nodist" "macros.h" "polyselect/" "gf2x/" "tests/" "AUTHORS" "NEWS" ".git" "README.msieve" "cado-nfs.supp" "README.Python" "cado-nfs.py" "README" "parameters/" "cado.h" "download/" "./" "CMakeLists.txt" "README.ffs" "files.dist" "README.nonlinear" "Makefile" "cx4.c72b3957.work/" ".mailmap" "cado_config_h.in" "Toolchain-MinGW64.cmake" "local.sh.macosx.x86_32" "scripts/" "cado-nfs-client.py" "local.sh.example" "cado_mpi_config_h.in" "filter/" "ffs/" "config/" "cado-nfs-start-clients.conf" "local.sh.macosx.x86_64" "cado-nfs-start-clients.py" "portability.h" "dev_docs/" "build/" "cx4.fff0c597.work/" "typecast.h" "cx4.6b342682.work/" "misc/" "files.unknown" "linalg/" "COPYING" "params.c60")
+
+ ("/home/shaananc/subgroup/paper/" (22212 11287 155635 590000) "measurements.tex" "subgroup.aux" "../" "intro.tex" "subgroup.bib" "subgroup.bib~" "libraries.tex" "ssh.tex" "ecm.tex" "background.tex" "subgroup.log" "subgroup.bbl" "./" "Makefile" "subgroup.pdf" "ipsec.tex" "usenix.sty" "tls.tex" "subgroup.blg" "measurements.tex~" "subgroup.tex" "subgroup.out" "tls.tex~" ".#tls.tex" "discussion.tex" ".gitignore")
+
+ ("/home/shaananc/juniper_paper/fortinet/x9.13/" (22205 19678 169990 753000) "../" ".git/" "./" ".gitignore")
+
+ ("/home/shaananc/juniper_paper/fortinet/" (22206 2409 424880 943000) "old_debian/" "../" "FGT_60-v300-build0753-FORTINET.out" "parse_iterations.py" "flatkc.smp" "aes.py" "libc6_2.11.3-4_i386.deb" "kernel/" "old_kernel/" "_FGT_60-v300-build0753-FORTINET.out.extracted/" "partition2/" "x931_impl.py" "./" "extract-vmlinux" "x9.13/" "parse_iterations.py~" "iterations.txt" "partition1/" "ex2/" "vmdk_files.tar.gz" ".#parse_iterations.py" "flatkc" "decomp/" "extract/" "fortios.vmdk")
+
+ ("/home/shaananc/gopath/src/github.com/research/upstream/dpi/tcpflow/src/" (22183 39748 514684 922000) "Makefile.in" "../" "zmq.hpp" "radiotap_old.c" "http-parser/" "be13_api/" "mime_map.h" "stest.cpp" "flow.cpp" "flow.o" "scan_wifiviz.cpp" "NOTES.txt" "zhelpers.hpp" ".deps/" "tcpdemux.cpp~" "scan_netviz.o" "dfxml/" "mime_map.cpp" "scan_netviz.cpp" "scan_http.cpp" "datalink_wifi.cpp" "datalink.cpp" "tcpflow.o" "datalink.o" "tcpdemux.cpp" "scan_tcpdemux.cpp" "iptree.h" "wifipcap/" "datalink_wifi.o" "hold/" "tcpip.cpp~" "tcpflow.h" "tcpip.h" "./" "scan_wifiviz.o" "Makefile.am" "scan_md5.cpp" "Makefile" "tcpdemux.h~" "pcap_writer.h" "tcpdemux.h" ".#tcpdemux.cpp" "netviz/" "inet_ntop.h" "tcpip.h~" "scan_md5.o" "tcpip.cpp" "mime_map.o" "scan_http.o" "intrusive_list.h" "util.o" "datalink_wifi.h" "scan_tcpdemux.o" "tcpflow" "util.cpp" "inet_ntop.c" "template_demo.cpp" "tcpflow.cpp" "tcpip.o")
+
+ ("/home/shaananc/.emacs.d/" (22119 1458 71494 486000) "elpa/" "../" "ido.last~" "auto-save-list/" "eshell/" "./" "init.el~" "init.el" "#init.el#" "ido.last")
+
+ ("/home/shaananc/" (22119 1446 639494 749000) ".antigen/" "../" ".ssh/" "start-ovs" ".gitconfig" ".cache/" ".gdbinit~" ".profile" "pennos/" ".zshrc" ".lesshst" "tmp/" ".nano_history" ".rediscli_history" ".zdata" "antigen.zsh" ".gnupg/" "go_1.5-godeb1_amd64.deb" ".gconf/" "upstream/" ".bash_history" ".gdbinit" "go_1.5.1-godeb1_amd64.deb" "./" "hello" "dotfiles_old/" ".dbus/" "main.o" ".zcompdump" "gotest/" ".zdata.1828" "pprof/" "dotfiles/" ".emacs.d/" ".rnd" ".w3m/" ".bashrc" ".bash_logout" "gopath/" "godeb" ".Xauthority" "main.c" ".tmux.conf" ".zsh_history" "p4/" "main.c~" ".config/" "upstream_out/" "make_pcaps/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/.git/" (22119 1446 847494 744000) "../" "COMMIT_EDITMSG" ".#COMMIT_EDITMSG" "objects/" "branches/" "MERGE_MSG" "index" "#COMMIT_EDITMSG#" "refs/" "hooks/" "description" "./" "FETCH_HEAD" "packed-refs" "ORIG_HEAD" "config" "HEAD" "info/" "logs/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/" (22113 44508 73147 851000) "prf.go" "../" "cipher_suites.go" "cipher_suites_test.go" "key_agreement.go" "ticket.go" "ztls_heartbeat.go" "flow.go~" "ztls_ka.go" "random_dup.go" "tls_test.go" "handshake_test.go" "conn.go" "testdata/" "ztls_handshake.go" "common.go" "handshake_messages_test.go" "conn_test.go" "ztls_handshake_test.go" "config.go" "handshake_client_test.go" "prf_test.go" "cipher_suites.go~" "example_test.go" "chacha20_poly1305.go" "handshake_server_test.go" "./" "selectors/" "tls.go" "handshake_messages.go" "flow.go" "handshake_server.go" "key_agreement.go~" "alert.go" "poly1305.go" "generate_cert.go" "chacha20_poly1305_test.go" "random_dup.go~" "ztls_names.go" "ztls_handshake.go~" "handshake_client.go")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/" (22112 46172 154616 460000) "../" "dpi_test.go~" "flow.go~" ".git/" "profile.out" "dpi" "flow/" "./" "core" "selfflows.pcap" "makefile" "makefile~" "dpi.go" "summary.go" "dpi_test.go" "tcpflow.patch" "tcpflow" ".gitignore" "ssl.pcap")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/flow/selectors/" (22112 46181 906616 235000) "../" "random_dup.go" "./" "random_dup.go~")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/dpi/selectors/" (22112 45945 930621 661000) "../" "random_dup.go" "./" "random_dup.go~")
+
+ ("/home/shaananc/gopath/src/shaananc/selectors/" (22102 14957 538402 889000) "../" "random_dup.go" "random_dup" "random_dup_test.go" "./" "random_dup_test.go~" "random_dup.go~" "cprof")
+
+ ("/home/shaananc/gopath/src/shaananc/" (22100 37395 44900 725000) "../" "./" "selectors/" "benchmarks/")
+
+ ("/home/shaananc/gopath/src/" (22100 37395 44900 725000) "../" "golang.org/" "./" "github.com/" "shaananc/" "gopkg.in/")
+
+ ("/home/shaananc/gopath/src/github.com/" (22104 37332 490874 679000) "zmap/" "dadrian/" "../" "garyburd/" "./" "golang/" "mediocregopher/" "ltv511/")
+
+ ("/home/shaananc/gopath/src/github.com/ltv511/" (22104 37332 506874 679000) "../" "dpi/" "stringutil/" "./" "hello/")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

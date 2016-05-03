@@ -1,0 +1,22 @@
+ls
+ls
+exit
+cd ..
+make
+sudo make install
+ls
+cd bin
+ls
+cd bin/
+ls
+cp tcpflow ~/upstream/dpi/
+go build
+go build
+go build
+go build
+go test
+ls
+cd ..
+ls
+./setup.sh 
+sudo ./setup.sh 
