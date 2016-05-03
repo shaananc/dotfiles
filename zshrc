@@ -53,7 +53,7 @@ antigen theme jdavis/zsh-files themes/jdavis
 antigen bundle git
 antigen bundle tmuxinator
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-completions src
+#antigen bundle zsh-users/zsh-completions src
 antigen bundle rupa/z
 antigen bundle rsync
 antigen bundle command-not-found
@@ -99,3 +99,7 @@ export EDITOR='emacs'
 alias diff="colordiff"
 alias df="df -H"
 alias du="du -ch"
+[[ -s "/home/shaananc/.gvm/scripts/gvm" ]] && source "/home/shaananc/.gvm/scripts/gvm"
+export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
+alias grep=sift
+export GOPATH=~/gopath
