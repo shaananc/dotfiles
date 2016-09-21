@@ -9,7 +9,7 @@ sudo apt-get install zsh emacs
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc zshrc tmux.conf emacs.d"    # list of files/folders to symlink in homedir
+files="bashrc zshrc tmux.conf emacs.d vimrc vim"    # list of files/folders to symlink in homedir
 
 ##########
 
