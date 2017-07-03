@@ -9,7 +9,7 @@ sudo apt-get install zsh emacs
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="bashrc zshrc tmux.conf emacs.d vimrc vim"    # list of files/folders to symlink in homedir
+files="bashrc zshrc tmux.conf emacs.d vimrc vim config tmux-powerlinerc"    # list of files/folders to symlink in homedir
 
 ##########
 
@@ -32,6 +32,7 @@ for file in $files; do
 done
 
 cd ~
-wget -N https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh
+curl -L git.io/antigen > antigen.zsh
 chsh -s /bin/zsh
 zsh
+
