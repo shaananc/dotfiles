@@ -1,6 +1,7 @@
+# -*- conf-unix -*-
 source /home/shaananc/antigen.zsh
 # Set up the prompt
-
+  
 autoload -Uz promptinit
 promptinit
 prompt adam1
@@ -94,10 +95,10 @@ antigen bundle jdavis/zsh-files
 antigen apply
 
 
-export PATH=$PATH:/sbin
+export PATH=$PATH:/sbin:~/.local/bin
 export LESSOPEN="| ~/dotfiles/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
-export EDITOR='emacs'
+export EDITOR='emacsclient --alternate-editor='
 export GOPATH='/home/shaananc/gopath'
 export PATH=$PATH:$GOPATH/bin
 
@@ -109,5 +110,6 @@ alias du="du -ch"
 export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
 alias grep=sift
 export GOPATH=~/gopath
+export VISUAL="emacsclient --alternate-editor='' -c"
 
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"

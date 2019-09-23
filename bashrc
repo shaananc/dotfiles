@@ -67,3 +67,7 @@ alias ssh='ssh -X'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
+if [ -t 1 ]; then
+exec zsh
+fi
