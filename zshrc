@@ -1,10 +1,10 @@
 # -*- conf-unix -*-
-source /home/shaananc/antigen.zsh
+source /Users/shaananc/antigen.zsh
 # Set up the prompt
   
 autoload -Uz promptinit
 promptinit
-prompt adam1
+#prompt adam1
 
 setopt histignorealldups sharehistory
 
@@ -19,24 +19,6 @@ HISTFILE=~/.zsh_history
 # Use modern completion system
 autoload -Uz compinit
 compinit
-
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
-
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 # Load various lib files
 antigen bundle robbyrussell/oh-my-zsh lib/
@@ -65,9 +47,9 @@ antigen bundle history
 antigen bundle ssh-agent
 
 # Node Plugins
-antigen bundle coffee
-antigen bundle node
-antigen bundle npm
+#antigen bundle coffee
+#antigen bundle node
+#antigen bundle npm
 
 # Python Plugins
 antigen bundle pip
@@ -82,8 +64,8 @@ if [[ $CURRENT_OS == 'OS X' ]]; then
     antigen bundle osx
 elif [[ $CURRENT_OS == 'Linux' ]]; then
     # None so far...
-
-    if [[ $DISTRO == 'CentOS' ]]; then
+    eval "$(dircolors -b)"    
+if [[ $DISTRO == 'CentOS' ]]; then
         antigen bundle centos
     fi
 elif [[ $CURRENT_OS == 'Cygwin' ]]; then
@@ -95,21 +77,42 @@ antigen bundle jdavis/zsh-files
 antigen apply
 
 
-export PATH=$PATH:/sbin:~/.local/bin
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select=2
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+zstyle ':completion:*' menu select=long
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+export PATH=$HOME/opt/anaconda3/bin:$PATH:/sbin:~/.local/bin
 export LESSOPEN="| ~/dotfiles/src-hilite-lesspipe.sh %s"
 export LESS=' -R '
 export EDITOR='emacsclient --alternate-editor='
-export GOPATH='/home/shaananc/gopath'
-export PATH=$PATH:$GOPATH/bin
+#export GOPATH='/home/shaananc/gopath'
+#export PATH=$PATH:$GOPATH/bin
 
 alias diff="colordiff"
 alias df="df -H"
 alias du="du -ch"
 
-[[ -s "/home/shaananc/.gvm/scripts/gvm" ]] && source "/home/shaananc/.gvm/scripts/gvm"
+#[[ -s "/home/shaananc/.gvm/scripts/gvm" ]] && source "/home/shaananc/.gvm/scripts/gvm"
 export PATH=$PATH:~/gopath/bin:~/dotfiles/bin
-alias grep=sift
-export GOPATH=~/gopath
+#alias grep=sift
+#export GOPATH=~/gopath
 export VISUAL="emacsclient --alternate-editor='' -c"
 
-git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commXit"
+
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
