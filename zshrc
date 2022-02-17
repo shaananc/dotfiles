@@ -1,15 +1,19 @@
-#setopt interactive_comments hist_ignore_dups  octal_zeroes   no_prompt_cr
-#setopt no_hist_no_functions no_always_to_end  append_history list_packed
-#setopt inc_append_history   complete_in_word  no_auto_menu   auto_pushd
-#setopt pushd_ignore_dups    no_glob_complete  no_glob_dots   c_bases
-#setopt numeric_glob_sort    no_share_history  promptsubst    auto_cd
-#setopt rc_quotes            extendedglob      notify
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+setopt interactive_comments hist_ignore_dups  octal_zeroes   #no_prompt_cr
+setopt no_hist_no_functions no_always_to_end  append_history list_packed
+setopt inc_append_history   complete_in_word     auto_pushd # no_auto_menu
+setopt pushd_ignore_dups    no_glob_complete  no_glob_dots   c_bases
+setopt numeric_glob_sort      promptsubst    auto_cd #no_share_history
+setopt rc_quotes            extendedglob      notify
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 autoload up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-bindkey -v
+#bindkey -v
 [[ -n "$terminfo[kpp]"   ]] && bindkey "$terminfo[kpp]"   up-line-or-beginning-search   # PAGE UP
 [[ -n "$terminfo[knp]"   ]] && bindkey "$terminfo[knp]"   down-line-or-beginning-search # PAGE DOWN
 [[ -n "$terminfo[khome]" ]] && bindkey "$terminfo[khome]" beginning-of-line             # HOME
@@ -26,19 +30,25 @@ bindkey "\e[F"    end-of-line           "\e[3~"   delete-char
 bindkey "^J"      accept-line           "^M"      accept-line
 bindkey "^T"      accept-line           "^R"      history-incremental-search-backward
 
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[^[[C" forward-word
+bindkey "^[^[[D" backward-word
+bindkey "kLFT5" forward-word
+bindkey "kRIT5" backward-word
+
 
 autoload colors
 colors
 
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
+load_pyenv(){
+  if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+  fi
+}
 
-export CLICOLOR=Y
+
 source "$HOME/.zinit/bin/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -46,57 +56,52 @@ autoload -Uz _zinit
 # Load a few important annexes, without Turbo
 # (this is currently required for annexes)
 zinit light-mode for \
-    zinit-zsh/z-a-rust \
-    zinit-zsh/z-a-as-monitor \
-    zinit-zsh/z-a-patch-dl \
-    zinit-zsh/z-a-bin-gem-node \
-    romkatv/zsh-defer
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
 ### End of Zinit's installer chunk
 
+
+zinit light-mode for \
+    romkatv/zsh-defer
+
 ZSH_THEME=robbyrussell
-zinit wait lucid for \
-    OMZL::git.zsh \
-    http://github.com/robbyrussell/oh-my-zsh/raw/master/lib/git.zsh \
-    OMZ::lib/theme-and-appearance.zsh \
-    OMZL::prompt_info_functions.zsh \
-    OMZ::themes/robbyrussell.zsh-theme
+#zinit wait lucid for \
+ #   OMZL::git.zsh \
+ #   http://github.com/robbyrussell/oh-my-zsh/raw/master/lib/git.zsh \
+ #   OMZ::lib/theme-and-appearance.zsh \
+ #   OMZL::prompt_info_functions.zsh \
+ #   OMZ::themes/robbyrussell.zsh-theme
 #zinit cdclear -q # <- forget completions provided up to this moment
-#setopt promptsubst
+setopt promptsubst
 
 zinit snippet OMZL::git.zsh
+zinit snippet OMZL::prompt_info_functions.zsh 
 zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::themes/robbyrussell.zsh-theme
 #zinit snippet OMZT::gnzh
 #zinit light NicoSantangelo/Alpharized
 
-
-zinit wait"2" lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
-    zdharma/fast-syntax-highlighting \
- atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions \
- blockf \
-    zsh-users/zsh-completions
-
-zinit wait"2" lucid for \
-    OMZ::plugins/pip
-
-zinit wait"2" lucid for \
- zsh-users/zsh-apple-touchbar
-
-zinit wait"2" lucid for \
- zsh-users/zsh-history-substring-search 
-# Fast-syntax-highlighting & autosuggestions
-
-zinit wait"2" lucid for OMZP::colored-man-pages
-
 zinit ice pick'poetry.zsh'
 zinit wait"2" lucid for \
-  sudosubin/zsh-poetry \
-  MichaelAquilina/zsh-autoswitch-virtualenv
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
+ atload"!_zsh_autosuggest_start; finish_setup;" \
+    zsh-users/zsh-autosuggestions \
+ blockf \
+    OMZ::plugins/pip \
+    zsh-users/zsh-apple-touchbar \
+    zsh-users/zsh-history-substring-search  \
+    zdharma-continuum/history-search-multi-word \
+    OMZP::colored-man-pages \
+    agkozak/zsh-z \
+    sudosubin/zsh-poetry \
+    MichaelAquilina/zsh-autoswitch-virtualenv \
+        zsh-users/zsh-completions \
 
-zinit load agkozak/zsh-z
-
+   
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
 
@@ -137,8 +142,18 @@ zstyle ':completion:*' menu select
 #                     # via intercepting the `compdef'-calls and storing them for later
 #                     # use with `zinit cdreplay')
 
+finish_setup(){
+  load_pyenv
+  which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
+  command -v exa 2>/dev/null >&2 && alias ls='exa'
+  alias tmux="tmux -CC"
 
-zinit wait lucid for \
+  export PATH="/usr/local/opt/perl/bin:$PATH"
+  eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+  eval "$(frum init)"
+}
+
+zinit wait"2" lucid atinit'zpcompinit; zpcdreplay;' for \
  Aloxaf/fzf-tab
 
 
@@ -150,59 +165,34 @@ function kubectl() {
     command kubectl "$@"
 }
 
-alias ls='exa'
-# alias ll="ls -l --color=auto"
-alias tmux="tmux -CC"
+
+
+
+
+
 export EDITOR=emacs
 
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH:/Users/shaananc/.local/bin"
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/binutils/bin:$PATH"
-export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+if [[ `uname` == "Darwin" ]]; then
+  export PATH="/opt/local/bin:/usr/local/sbin:/opt/local/sbin:$PATH:/Users/shaananc/.local/bin"
+  #export PATH="/usr/local/opt/binutils/bin:$PATH"
+  export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PATH:$PYENV_ROOT/bin"
+  CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+  LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
 
-export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4'
-LESSPIPE=`which src-hilite-lesspipe.sh`
-export LESSOPEN="| ${LESSPIPE} %s"
-export LESS=' -R -X -F '
+fi
 
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^[^[[C" forward-word
-bindkey "^[^[[D" backward-word
-bindkey "kLFT5" forward-word
-bindkey "kRIT5" backward-word
+  
 
-# PERL config
-PATH="/Users/shaananc/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/shaananc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/shaananc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/shaananc/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/shaananc/perl5"; export PERL_MM_OPT;
+export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4 -R -X -F'
+
+
 
 # kube config
 export KUBECONFIG=$KUBECONFIG:$HOME/.kube/config
 export KUBEMASTER=158.130.4.34
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-export PYENV_ROOT="$HOME/.pyenv"
-
-load_pyenv(){
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-if command -v pyenv-virtualenv &>/dev/null; then
-    eval "$(pyenv virtualenv-init -)"
-fi
-if type brew &>/dev/null; then
-  HOMEBREW_PREFIX="$(brew --prefix)"
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
-}
-
-zsh-defer -c 'load_pyenv'
-
 
 
 ### Fix slowness of pastes with zsh-syntax-highlighting.zsh
@@ -216,29 +206,23 @@ pastefinish() {
 }
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
-### Fix slowness of pastes
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/Users/shaananc/.pyenv/versions/miniconda3-latest/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh" ]; then
-#         . "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/Users/shaananc/.pyenv/versions/miniconda3-latest/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# # <<< conda initialize <<<
 
 # zsh-defer -c 'export CFLAGS="-I$(brew --prefix openssl)/include -I$(brew --prefix readline)/include -I$(xcrun --show-sdk-path)/usr/include"'
 # zsh-defer -c 'export LDFLAGS="-L$(brew --prefix openssl)/lib -L$(brew --prefix readline)/lib -L$(brew --prefix zlib)/lib"'
-CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
+
 #SDKROOT=/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk 
+
+#if [[ `uname` == "Darwin" ]]; then
+#if [ $(brew info llvm 2>&1 | grep -c "Built from source on") -eq 0 ]; then
+  #we are using a homebrew clang, need new flags
+#export LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib -L$(brew --prefix)/opt/llvm/lib -Wl,-rpath,$(brew --prefix)/opt/llvm/lib"
+#export CFLAGS="-I/usr/local/opt/llvm/include -isysroot $(xcrun --show-sdk-path)"
+#export CPPFLAGS="-I/usr/local/opt/llvm/include -I/usr/local/opt/llvm/include/c++/v1/"
+#export PATH="/usr/local/opt/llvm/bin:$PATH"
+#export SDKROOT="$(xcrun --show-sdk-path)"
+#fi
+#fi
 
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
@@ -249,3 +233,7 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
+
+alias gdb="gdb -quiet"
+alias python="ipython"
+
