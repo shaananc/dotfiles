@@ -92,7 +92,6 @@ zinit wait"2" lucid for \
     zsh-users/zsh-autosuggestions \
  blockf \
     OMZ::plugins/pip \
-    zsh-users/zsh-apple-touchbar \
     zsh-users/zsh-history-substring-search  \
     zdharma-continuum/history-search-multi-word \
     OMZP::colored-man-pages \
@@ -101,7 +100,9 @@ zinit wait"2" lucid for \
     MichaelAquilina/zsh-autoswitch-virtualenv \
         zsh-users/zsh-completions \
 
-   
+
+
+
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
 
@@ -180,6 +181,9 @@ if [[ `uname` == "Darwin" ]]; then
   export PATH="$PATH:$PYENV_ROOT/bin"
   CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
   LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
+
+  zinit wait"2" lucid for \
+    zsh-users/zsh-apple-touchbar
 
 fi
 
