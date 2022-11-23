@@ -2,12 +2,11 @@
 
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
 (package-initialize)
 
-(require 'benchmark-init)
-(add-hook 'after-init-hook 'benchmark-init/deactivate)
+;(require 'benchmark-init)
+;(add-hook 'after-init-hook 'benchmark-init/deactivate)
 
 
 (unless(package-installed-p 'use-package)
@@ -25,7 +24,7 @@
             initial-buffer-choice  nil)
 
 ;list the packages you want
-;(setq package-list '(dracula-theme py-autopep8  graphene ivy-bibtex ivy-dired-history ivy-explorer ivy-todo graphene backup-walker projectile elpy py-autopep8 py-import-check py-isort go-mode cython-mode company company-c-headers company-statistics))
+;(setq package-list '(dracula-theme py-autopep8  graphene ivy-bibtex ivy-dired-history ivy-explorer ivy-todo graphene backup-walker projectile elpy py-autopep8 py-import-check py-isort go-mode cython-mode company company-c-headers company-statistics tree-sitter tree-sitter-langs))
 
 (customize-set-variable 'load-prefer-newer t)
 (use-package auto-compile
@@ -65,6 +64,17 @@
 
 (use-package graphene)
 
+(use-package tree-sitter
+  :config
+  (use-package tree-sitter-langs
+    :config
+    (global-tree-sitter-mode)
+    (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+  )
+)
+
+
+
 
 (use-package ivy-bibtex :after ivy)
 (use-package ivy-todo :after ivy)
@@ -102,23 +112,23 @@
   )
 
 
-(defconst sh-mode--string-interpolated-variable-regexp
-  "{\\$[^}\n\\\\]*\\(?:\\\\.[^}\n\\\\]*\\)*}\\|\\${\\sw+}\\|\\$\\sw+")
+;; (defconst sh-mode--string-interpolated-variable-regexp
+;;   "{\\$[^}\n\\\\]*\\(?:\\\\.[^}\n\\\\]*\\)*}\\|\\${\\sw+}\\|\\$\\sw+")
 
-(defun sh-mode--string-intepolated-variable-font-lock-find(limit)
-  (while (re-search-forward sh-mode--string-interpolated-variable-regexp limit t)
-    (let((quoted-stuff(nth 3 (syntax-ppss))))
-      (when(and quoted-stuff(member quoted-stuff '(?\" ?`)))
-        (put-text-property(match-beginning 0)(match-end 0)
-			  'face 'font-lock-variable-name-face))))
-  nil)
+;; (defun sh-mode--string-intepolated-variable-font-lock-find(limit)
+;;   (while (re-search-forward sh-mode--string-interpolated-variable-regexp limit t)
+;;     (let((quoted-stuff(nth 3 (syntax-ppss))))
+;;       (when(and quoted-stuff(member quoted-stuff '(?\" ?`)))
+;;         (put-text-property(match-beginning 0)(match-end 0)
+;; 			  'face 'font-lock-variable-name-face))))
+;;   nil)
 
-(eval-after-load 'sh-mode
-  '(progn
-     (font-lock-add-keywords
-      'sh-mode
-      `((sh-mode--string-intepolated-variable-font-lock-find))
-      'append)))
+;; (eval-after-load 'sh-mode
+;;   '(progn
+;;      (font-lock-add-keywords
+;;       'sh-mode
+;;       `((sh-mode--string-intepolated-variable-font-lock-find))
+;;       'append)))
 
 
 
@@ -162,6 +172,10 @@
 
 (global-linum-mode 1)
 					;add line numbers on the left
+(setq linum-format "%4d \u2502 ")
+
+
+(setq vc-follow-symlinks t) ; follow symlinks
 
 (cua-mode)
 (setq x-select-enable-clipboard t)
@@ -235,4 +249,37 @@
    ("C-r" . swiper)))
 
 
+(use-package good-scroll
+  :config
+  (good-scroll-mode 1)
+)
+
+;;;; Mouse scrolling in terminal emacs
+(unless (display-graphic-p)
+  ;; activate mouse-based scrolling
+  (xterm-mouse-mode 1)
+  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+  (global-set-key (kbd "<mouse-5>") 'scroll-up-line)
+)
+
+
+(add-to-list 'auto-mode-alist '("\\.zsh\\'" . sh-mode))
+(add-to-list 'auto-mode-alist '("\\zshrc\\'" . sh-mode))
+(setq ring-bell-function 'ignore)
+
 (add-to-list 'auto-mode-alist '("\\.*rc$" . conf-unix-mode))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(good-scroll ivy-rich elpy ivy-explorer ivy-dired-history ivy-todo ivy-bibtex graphene cython-mode go-mode py-isort py-import-check projectile dracula-theme company-statistics multiple-cursors company paradox auto-compile use-package)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+
