@@ -9,6 +9,16 @@ setopt rc_quotes            extendedglob      notify
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+     
+
+alias history="history 1"
+HISTSIZE=99999  
+HISTFILESIZE=99999 
+SAVEHIST=$HISTSIZE
+
+alias ll="ls -alF"
+
+
 autoload up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
@@ -144,14 +154,20 @@ zstyle ':completion:*' menu select
 #                     # use with `zinit cdreplay')
 
 finish_setup(){
-  load_pyenv
+  export PYENV_ROOT="$HOME/.pyenv"
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
   which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
   command -v exa 2>/dev/null >&2 && alias ls='exa'
+  command -v bat 2>/dev/null >&2 && alias cat='bat' && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   alias tmux="tmux -CC"
 
   export PATH="/usr/local/opt/perl/bin:$PATH"
   eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
   eval "$(frum init)"
+  alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
+
 }
 
 zinit wait"2" lucid atinit'zpcompinit; zpcdreplay;' for \
@@ -240,4 +256,29 @@ fi
 
 alias gdb="gdb -quiet"
 alias python="ipython"
+
+
+PATH="/Users/shaananc/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/shaananc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/shaananc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/shaananc/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/shaananc/perl5"; export PERL_MM_OPT;
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/Users/shaananc/.pyenv/versions/miniconda3-latest/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh" ]; then
+#         . "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/shaananc/.pyenv/versions/miniconda3-latest/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# <<< conda initialize <<<
 
