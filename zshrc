@@ -154,18 +154,15 @@ zstyle ':completion:*' menu select
 #                     # use with `zinit cdreplay')
 
 finish_setup(){
-  export PYENV_ROOT="$HOME/.pyenv"
-  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  command -v pyenv 2>/dev/null >&2 && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
   which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
   command -v exa 2>/dev/null >&2 && alias ls='exa'
-  command -v bat 2>/dev/null >&2 && alias cat='bat' && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  command -v bat 2>/dev/null >&2 && alias cat='bat'
+  command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   alias tmux="tmux -CC"
 
   export PATH="/usr/local/opt/perl/bin:$PATH"
   eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
-  eval "$(frum init)"
   alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
 
 }
