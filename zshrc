@@ -94,10 +94,15 @@ zinit snippet OMZ::themes/robbyrussell.zsh-theme
 #zinit snippet OMZT::gnzh
 #zinit light NicoSantangelo/Alpharized
 
+#zinit light marlonrichert/zsh-autocomplete
+zstyle ':completion:*' insert-tab false
+
 zinit ice pick'poetry.zsh'
 zinit wait"2" lucid for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+ atinit"FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
+    Aloxaf/fzf-tab \
+    https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh \
  atload"!_zsh_autosuggest_start; finish_setup;" \
     zsh-users/zsh-autosuggestions \
  blockf \
@@ -113,8 +118,7 @@ zinit wait"2" lucid for \
 
 
 
-#zinit light marlonrichert/zsh-autocomplete
-zstyle ':completion:*' insert-tab false
+
 
 
 # zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
@@ -156,7 +160,7 @@ zstyle ':completion:*' menu select
 finish_setup(){
   command -v pyenv 2>/dev/null >&2 && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
   which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
-  command -v exa 2>/dev/null >&2 && alias ls='exa'
+  command -v exa 2>/dev/null >&2 && alias ls='exa' && alias ll='exa -l' && alias la='exa -la'
   command -v bat 2>/dev/null >&2 && alias cat='bat'
   command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   alias tmux="tmux -CC"
@@ -167,8 +171,8 @@ finish_setup(){
 
 }
 
-zinit wait"2" lucid atinit'zpcompinit; zpcdreplay;' for \
- Aloxaf/fzf-tab
+# zinit wait"2" lucid atinit'zpcompinit; zpcdreplay;' for \
+#  Aloxaf/fzf-tab
 
 
 function kubectl() {
