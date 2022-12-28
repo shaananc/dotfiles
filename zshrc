@@ -97,12 +97,22 @@ zinit snippet OMZ::themes/robbyrussell.zsh-theme
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
 
+brewfpath(){
+  ## check if on Darwin and if brew is installed
+  if [[ `uname` == "Darwin" ]] && command -v brew >/dev/null 2>&1; then
+    ## add brew completions to fpath
+    FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
+    BREWPLUGIN="https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh"
+  fi
+}
+
+
 zinit ice pick'poetry.zsh'
 zinit wait"2" lucid for \
- atinit"FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+ atinit"brewfpath; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
     Aloxaf/fzf-tab \
-    https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh \
+    $BREWPLUGIN \
  atload"!_zsh_autosuggest_start; finish_setup;" \
     zsh-users/zsh-autosuggestions \
  blockf \
@@ -182,8 +192,6 @@ function kubectl() {
 
     command kubectl "$@"
 }
-
-
 
 
 
