@@ -175,8 +175,11 @@ finish_setup(){
   command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   alias tmux="tmux -CC"
 
-  export PATH="/usr/local/opt/perl/bin:$PATH"
-  eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)"
+  ## check if perl is at /usr/local/opt/perl/bin and if so, add it to the path
+  if [ -d "/usr/local/opt/perl/bin" ]; then
+    export PATH="/usr/local/opt/perl/bin:$PATH"
+  fi
+  
   alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
 
 }
