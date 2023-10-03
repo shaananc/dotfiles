@@ -5,6 +5,7 @@ setopt inc_append_history   complete_in_word     auto_pushd # no_auto_menu
 setopt pushd_ignore_dups    no_glob_complete  no_glob_dots   c_bases
 setopt numeric_glob_sort      promptsubst    auto_cd #no_share_history
 setopt rc_quotes            extendedglob      notify
+setopt correct_all
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -17,7 +18,8 @@ HISTFILESIZE=99999
 SAVEHIST=$HISTSIZE
 
 alias ll="ls -alF"
-
+alias less="less -R"
+alias more="more -R"
 
 autoload up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -91,11 +93,15 @@ zinit snippet OMZL::git.zsh
 zinit snippet OMZL::prompt_info_functions.zsh 
 zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::themes/robbyrussell.zsh-theme
+
+#zinit load #zsh-users/zsh-autosuggestions \
 #zinit snippet OMZT::gnzh
 #zinit light NicoSantangelo/Alpharized
-
+zinit snippet OMZP::colored-man-pages
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
+
+command -v pyenv 2>/dev/null >&2 && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PATH:$PYENV_ROOT/bin" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
 
 brewfpath(){
   ## check if on Darwin and if brew is installed
@@ -111,6 +117,8 @@ zinit ice pick'poetry.zsh'
 zinit wait"2" lucid for \
  atinit"brewfpath; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
+    https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/pip/_pip \
+    chr-fritz/docker-completion.zshplugin \
     Aloxaf/fzf-tab \
     $BREWPLUGIN \
  atload"!_zsh_autosuggest_start; finish_setup;" \
@@ -119,16 +127,9 @@ zinit wait"2" lucid for \
     OMZ::plugins/pip \
     zsh-users/zsh-history-substring-search  \
     zdharma-continuum/history-search-multi-word \
-    OMZP::colored-man-pages \
-    agkozak/zsh-z \
-    sudosubin/zsh-poetry \
-    MichaelAquilina/zsh-autoswitch-virtualenv \
-        zsh-users/zsh-completions \
-
-
-
-
-
+  atload"!_zsh_autosuggest_start; finish_setup;" \
+    zsh-users/zsh-autosuggestions \
+    zsh-users/zsh-completions
 
 
 # zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
@@ -148,9 +149,10 @@ zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 # switch group using `,` and `.`
 zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':completion:*' matcher-list 'r:[^A-Z0-9]||[A-Z0-9]=** r:|=*' 
 
 
 zstyle ':completion:*' menu select
@@ -158,8 +160,9 @@ zstyle ':completion:*' menu select
 # zinit ice pick"async.zsh" src"pure.zsh"
 # zinit light sindresorhus/pure
 
-# autoload -Uz compinit
-# compinit
+command -v brew 2>/dev/null >&2 && FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
+autoload -Uz compinit
+compinit
 
 # zinit cdreplay -q   # -q is for quiet; actually run all the `compdef's saved before
 #                     #`compinit` call (`compinit' declares the `compdef' function, so
@@ -168,11 +171,14 @@ zstyle ':completion:*' menu select
 #                     # use with `zinit cdreplay')
 
 finish_setup(){
-  command -v pyenv 2>/dev/null >&2 && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PYENV_ROOT/bin:$PATH" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
+
+ # zinit load MichaelAquilina/zsh-autoswitch-virtualenv
+
   which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
-  command -v exa 2>/dev/null >&2 && alias ls='exa' && alias ll='exa -l' && alias la='exa -la'
+  command -v eza 2>/dev/null >&2 && alias ls='eza' && alias ll='eza -l' && alias la='eza -la'
   command -v bat 2>/dev/null >&2 && alias cat='bat'
   command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  command -v ipython 2>/dev/null >&2 && alias python="ipython"
   alias tmux="tmux -CC"
 
   ## check if perl is at /usr/local/opt/perl/bin and if so, add it to the path
@@ -181,12 +187,10 @@ finish_setup(){
   fi
   
   alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
+  # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+  export PATH="$PATH:$HOME/.rvm/bin"
 
 }
-
-# zinit wait"2" lucid atinit'zpcompinit; zpcdreplay;' for \
-#  Aloxaf/fzf-tab
-
 
 function kubectl() {
     if ! type __start_kubectl >/dev/null 2>&1; then
@@ -210,15 +214,19 @@ if [[ `uname` == "Darwin" ]]; then
   CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
   LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
 
-  zinit wait"2" lucid for \
-    zsh-users/zsh-apple-touchbar
+  
+  PATH="/Users/shaananc/perl5/bin${PATH:+:${PATH}}"; export PATH;
+  PERL5LIB="/Users/shaananc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+  PERL_LOCAL_LIB_ROOT="/Users/shaananc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+  PERL_MB_OPT="--install_base \"/Users/shaananc/perl5\""; export PERL_MB_OPT;
+  PERL_MM_OPT="INSTALL_BASE=/Users/shaananc/perl5"; export PERL_MM_OPT;
 
 fi
 
 
   
 
-export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4 -R -X -F'
+#export LESS='--quit-if-one-screen --ignore-case --status-column --LONG-PROMPT --RAW-CONTROL-CHARS --HILITE-UNREAD --tabs=4 --no-init --window=-4 -R -X -F'
 
 
 
