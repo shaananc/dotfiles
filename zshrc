@@ -114,15 +114,15 @@ brewfpath(){
 
 
 zinit ice pick'poetry.zsh'
+zinit light sudosubin/zsh-poetry
+
 zinit wait"2" lucid for \
  atinit"brewfpath; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
-    https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/pip/_pip \
+    OMZP::pip \
     chr-fritz/docker-completion.zshplugin \
     Aloxaf/fzf-tab \
     $BREWPLUGIN \
- atload"!_zsh_autosuggest_start; finish_setup;" \
-    zsh-users/zsh-autosuggestions \
  blockf \
     OMZ::plugins/pip \
     zsh-users/zsh-history-substring-search  \
