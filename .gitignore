@@ -6,3 +6,5 @@ network-security.data
 emacs.d/auto-save-list
 #*#
 htoprc
+config
+.DS_Store
