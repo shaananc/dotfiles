@@ -88,6 +88,7 @@ ZSH_THEME=robbyrussell
  #   OMZ::themes/robbyrussell.zsh-theme
 #zinit cdclear -q # <- forget completions provided up to this moment
 setopt promptsubst
+zinit load agkozak/zsh-z
 
 zinit snippet OMZL::git.zsh
 zinit snippet OMZL::prompt_info_functions.zsh 
@@ -111,6 +112,8 @@ brewfpath(){
     BREWPLUGIN="https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh"
   fi
 }
+
+
 
 
 zinit ice pick'poetry.zsh'
@@ -179,6 +182,7 @@ finish_setup(){
   command -v bat 2>/dev/null >&2 && alias cat='bat'
   command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   command -v ipython 2>/dev/null >&2 && alias python="ipython"
+  command -v procs 2>/dev/null >&2 && alias ps="procs -p disable"
   alias tmux="tmux -CC"
 
   ## check if perl is at /usr/local/opt/perl/bin and if so, add it to the path
@@ -275,7 +279,14 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 fi
 
 alias gdb="gdb -quiet"
-alias python="ipython"
+
+if command -v ipython >/dev/null 2>&1; then
+  alias python="ipython"
+fi
+
+if [[ `uname` == "Linux" ]] && command -v ip >/dev/null 2>&1; then
+  alias ips="ip -c -br s"
+fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -295,3 +306,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # unset __conda_setup
 # <<< conda initialize <<<
 
+if command -v atuin >/dev/null 2>&1; then
+eval "$(atuin init zsh)"
+fi
