@@ -91,6 +91,7 @@ setopt promptsubst
 zinit load agkozak/zsh-z
 
 zinit snippet OMZL::git.zsh
+zinit snippet OMZL::async_prompt.zsh
 zinit snippet OMZL::prompt_info_functions.zsh 
 zinit snippet OMZ::lib/theme-and-appearance.zsh
 zinit snippet OMZ::themes/robbyrussell.zsh-theme
