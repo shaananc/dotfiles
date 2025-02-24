@@ -103,7 +103,11 @@ zinit snippet OMZP::colored-man-pages
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
 
-command -v pyenv 2>/dev/null >&2 && export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PATH:$PYENV_ROOT/bin" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
+export PATH="/opt/homebrew/bin:$PATH"
+
+#command -v pyenv 2>/dev/null >&2 && 
+export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PATH:$PYENV_ROOT/bin" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
+
 
 brewfpath(){
   ## check if on Darwin and if brew is installed
@@ -166,7 +170,7 @@ zstyle ':completion:*' menu select
 
 command -v brew 2>/dev/null >&2 && FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
 autoload -Uz compinit
-compinit
+#compinit
 
 # zinit cdreplay -q   # -q is for quiet; actually run all the `compdef's saved before
 #                     #`compinit` call (`compinit' declares the `compdef' function, so
@@ -180,11 +184,12 @@ finish_setup(){
 
   which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
   command -v eza 2>/dev/null >&2 && alias ls='eza' && alias ll='eza -l' && alias la='eza -la'
-  command -v bat 2>/dev/null >&2 && alias cat='bat'
+  command -v bat 2>/dev/null >&2  && alias cat='bat'
   command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
   command -v ipython 2>/dev/null >&2 && alias python="ipython"
   command -v procs 2>/dev/null >&2 && alias ps="procs -p disable"
   alias tmux="tmux -CC"
+  command -v frum 2>/dev/null >&2 && eval "$(frum init)" && eval "$(frum completions)"
 
   ## check if perl is at /usr/local/opt/perl/bin and if so, add it to the path
   if [ -d "/usr/local/opt/perl/bin" ]; then
@@ -194,6 +199,8 @@ finish_setup(){
   alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
   # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
   export PATH="$PATH:$HOME/.rvm/bin"
+
+  eval "$(uv generate-shell-completion zsh)"
 
 }
 
