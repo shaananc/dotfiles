@@ -1,11 +1,28 @@
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-setopt interactive_comments hist_ignore_dups  octal_zeroes   #no_prompt_cr
-setopt no_hist_no_functions no_always_to_end  append_history list_packed
-setopt inc_append_history   complete_in_word     auto_pushd # no_auto_menu
-setopt pushd_ignore_dups    no_glob_complete  no_glob_dots   c_bases
-setopt numeric_glob_sort      promptsubst    auto_cd #no_share_history
-setopt rc_quotes            extendedglob      notify
-setopt correct_all
+
+setopt \
+  interactive_comments \
+  hist_ignore_dups \
+  hist_ignore_space \
+  octal_zeroes \
+  no_hist_no_functions \
+  no_always_to_end \
+  append_history \
+  list_packed \
+  inc_append_history \
+  complete_in_word \
+  auto_pushd \
+  pushd_ignore_dups \
+  no_glob_complete \
+  no_glob_dots \
+  c_bases \
+  numeric_glob_sort \
+  promptsubst \
+  auto_cd \
+  rc_quotes \
+  extendedglob \
+  notify \
+  correct_all
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -13,8 +30,9 @@ export LANG=en_US.UTF-8
      
 
 alias history="history 1"
-HISTSIZE=99999  
-HISTFILESIZE=99999 
+HISTSIZE=99999
+HISTFILESIZE=99999
+HISTFILE=${HISTFILE:-$HOME/.zsh_history}
 SAVEHIST=$HISTSIZE
 
 alias ll="ls -alF"
@@ -50,8 +68,8 @@ bindkey "kLFT5" forward-word
 bindkey "kRIT5" backward-word
 
 
-autoload colors
-colors
+autoload -Uz colors && colors
+typeset -gU path fpath
 
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
     print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
@@ -87,7 +105,6 @@ ZSH_THEME=robbyrussell
  #   OMZL::prompt_info_functions.zsh \
  #   OMZ::themes/robbyrussell.zsh-theme
 #zinit cdclear -q # <- forget completions provided up to this moment
-setopt promptsubst
 zinit load agkozak/zsh-z
 
 zinit snippet OMZL::git.zsh
@@ -103,18 +120,93 @@ zinit snippet OMZP::colored-man-pages
 #zinit light marlonrichert/zsh-autocomplete
 zstyle ':completion:*' insert-tab false
 
-export PATH="/opt/homebrew/bin:$PATH"
+# Helpers to manage PATH updates idempotently.
+path_prepend_if_exists() {
+  local dir new_entries=()
+  for dir in "$@"; do
+    [[ -d $dir ]] || continue
+    new_entries+=("$dir")
+  done
+  [[ ${#new_entries[@]} -eq 0 ]] && return
+  path=("${new_entries[@]}" "${path[@]}")
+}
+
+path_append_if_exists() {
+  local dir
+  for dir in "$@"; do
+    [[ -d $dir ]] || continue
+    path+=("$dir")
+  done
+}
+
+[[ $(uname) == "Darwin" ]] && path_prepend_if_exists "/opt/homebrew/bin"
 
 
 brewfpath(){
-  ## check if on Darwin and if brew is installed
-  if [[ `uname` == "Darwin" ]] && command -v brew >/dev/null 2>&1; then
-    ## add brew completions to fpath
-    FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
-    BREWPLUGIN="https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh"
+  typeset -g BREWPLUGIN=""
+  if [[ $(uname) == "Darwin" ]] && command -v brew >/dev/null 2>&1; then
+    local brew_prefix
+    brew_prefix=$(brew --prefix) || return
+    fpath=("${brew_prefix}/share/zsh/site-functions" "${fpath[@]}")
+    typeset -g BREWPLUGIN="https://raw.githubusercontent.com/thirteen37/fzf-brew/master/fzf-brew.plugin.zsh"
   fi
 }
 
+brewfpath
+
+autoload -Uz compinit
+compinit -C
+
+
+
+
+finish_setup(){
+  (( ${+_finish_setup_done} )) && return
+  typeset -g _finish_setup_done=1
+
+  if command -v pygmentize >/dev/null 2>&1; then
+    export LESSOPEN='| pygmentize -g -f terminal256 %s'
+  fi
+
+  if command -v eza >/dev/null 2>&1; then
+    alias ls='eza'
+    alias ll='eza -l'
+    alias la='eza -la'
+  fi
+
+  if command -v bat >/dev/null 2>&1; then
+    alias cat='bat'
+  fi
+
+  if command -v fzf >/dev/null 2>&1 && command -v bat >/dev/null 2>&1; then
+    alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
+  fi
+
+  if command -v ipython >/dev/null 2>&1; then
+    alias python='ipython'
+  fi
+
+  if command -v procs >/dev/null 2>&1; then
+    alias ps='procs -p disable'
+  fi
+
+  if command -v tmux >/dev/null 2>&1 && [[ ${TERM_PROGRAM:-} == 'iTerm.app' ]]; then
+    alias tmux='tmux -CC'
+  fi
+
+  if command -v frum >/dev/null 2>&1; then
+    eval "$(frum init)"
+    eval "$(frum completions)"
+  fi
+
+  path_prepend_if_exists '/usr/local/opt/perl/bin'
+
+  alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
+
+  if command -v uv >/dev/null 2>&1; then
+    eval "$(uv generate-shell-completion zsh)"
+  fi
+}
 
 
 
@@ -122,7 +214,7 @@ zinit ice pick'poetry.zsh'
 zinit light sudosubin/zsh-poetry
 
 zinit wait"2" lucid for \
- atinit"brewfpath; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+ atinit"brewfpath" \
     zdharma-continuum/fast-syntax-highlighting \
     OMZP::pip \
     greymd/docker-zsh-completion \
@@ -135,6 +227,8 @@ zinit wait"2" lucid for \
   atload"!_zsh_autosuggest_start; finish_setup;" \
     zsh-users/zsh-autosuggestions \
     zsh-users/zsh-completions
+
+finish_setup
 
 
 # zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
@@ -165,7 +259,6 @@ zstyle ':completion:*' menu select
 # zinit ice pick"async.zsh" src"pure.zsh"
 # zinit light sindresorhus/pure
 
-command -v brew 2>/dev/null >&2 && FPATH=$(brew --prefix)/share/zsh/site-functions:${FPATH}
 autoload -Uz compinit
 #compinit
 
@@ -174,32 +267,6 @@ autoload -Uz compinit
 #                     # it cannot be used until `compinit' is ran; Zinit solves this
 #                     # via intercepting the `compdef'-calls and storing them for later
 #                     # use with `zinit cdreplay')
-
-finish_setup(){
-
- # zinit load MichaelAquilina/zsh-autoswitch-virtualenv
-
-  which pygmentize 2> /dev/null >&2 && export LESSOPEN="| pygmentize -g -f terminal256 %s"
-  command -v eza 2>/dev/null >&2 && alias ls='eza' && alias ll='eza -l' && alias la='eza -la'
-  command -v bat 2>/dev/null >&2  && alias cat='bat'
-  command -v fzf 2>/dev/null >&2 && alias fzf="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
-  command -v ipython 2>/dev/null >&2 && alias python="ipython"
-  command -v procs 2>/dev/null >&2 && alias ps="procs -p disable"
-  alias tmux="tmux -CC"
-  command -v frum 2>/dev/null >&2 && eval "$(frum init)" && eval "$(frum completions)"
-
-  ## check if perl is at /usr/local/opt/perl/bin and if so, add it to the path
-  if [ -d "/usr/local/opt/perl/bin" ]; then
-    export PATH="/usr/local/opt/perl/bin:$PATH"
-  fi
-  
-  alias lrg=~/dotfiles/scripts/ripgreplauncher.sh
-  # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-  export PATH="$PATH:$HOME/.rvm/bin"
-
-  eval "$(uv generate-shell-completion zsh)"
-
-}
 
 function kubectl() {
     if ! type __start_kubectl >/dev/null 2>&1; then
@@ -214,19 +281,23 @@ function kubectl() {
 
 export EDITOR=emacs
 
-if [[ `uname` == "Darwin" ]]; then
-  export PATH="/opt/local/bin:/usr/local/sbin:/opt/local/sbin:$PATH:/Users/shaananc/.local/bin"
+if [[ $(uname) == "Darwin" ]]; then
+  path_prepend_if_exists \
+    "${HOME}/perl5/bin" \
+    "/usr/local/opt/openssl@1.1/bin" \
+    "/opt/local/bin" \
+    "/usr/local/sbin" \
+    "/opt/local/sbin"
+  path_append_if_exists "${HOME}/.local/bin"
   #export PATH="/usr/local/opt/binutils/bin:$PATH"
-  export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-  CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-  LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
 
-  
-  PATH="/Users/shaananc/perl5/bin${PATH:+:${PATH}}"; export PATH;
-  PERL5LIB="/Users/shaananc/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-  PERL_LOCAL_LIB_ROOT="/Users/shaananc/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-  PERL_MB_OPT="--install_base \"/Users/shaananc/perl5\""; export PERL_MB_OPT;
-  PERL_MM_OPT="INSTALL_BASE=/Users/shaananc/perl5"; export PERL_MM_OPT;
+  export CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+  export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
+
+  export PERL5LIB="${HOME}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+  export PERL_LOCAL_LIB_ROOT="${HOME}/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+  export PERL_MB_OPT="--install_base \"${HOME}/perl5\""
+  export PERL_MM_OPT="INSTALL_BASE=${HOME}/perl5"
 
 fi
 
@@ -260,7 +331,7 @@ zstyle :bracketed-paste-magic paste-finish pastefinish
 
 #SDKROOT=/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk 
 
-#if [[ `uname` == "Darwin" ]]; then
+#if [[ $(uname) == "Darwin" ]]; then
 #if [ $(brew info llvm 2>&1 | grep -c "Built from source on") -eq 0 ]; then
   #we are using a homebrew clang, need new flags
 #export LDFLAGS="-L$(xcrun --show-sdk-path)/usr/lib -L$(brew --prefix)/opt/llvm/lib -Wl,-rpath,$(brew --prefix)/opt/llvm/lib"
@@ -283,11 +354,7 @@ fi
 
 alias gdb="gdb -quiet"
 
-if command -v ipython >/dev/null 2>&1; then
-  alias python="ipython"
-fi
-
-if [[ `uname` == "Linux" ]] && command -v ip >/dev/null 2>&1; then
+if [[ $(uname) == "Linux" ]] && command -v ip >/dev/null 2>&1; then
   alias ips="ip -c -br s"
 fi
 
