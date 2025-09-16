@@ -105,9 +105,6 @@ zstyle ':completion:*' insert-tab false
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-#command -v pyenv 2>/dev/null >&2 && 
-export PYENV_ROOT="$HOME/.pyenv" && export PATH="$PATH:$PYENV_ROOT/bin" && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init -)"
-
 
 brewfpath(){
   ## check if on Darwin and if brew is installed
@@ -128,7 +125,7 @@ zinit wait"2" lucid for \
  atinit"brewfpath; ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
     zdharma-continuum/fast-syntax-highlighting \
     OMZP::pip \
-    chr-fritz/docker-completion.zshplugin \
+    greymd/docker-zsh-completion \
     Aloxaf/fzf-tab \
     $BREWPLUGIN \
  blockf \
@@ -221,8 +218,6 @@ if [[ `uname` == "Darwin" ]]; then
   export PATH="/opt/local/bin:/usr/local/sbin:/opt/local/sbin:$PATH:/Users/shaananc/.local/bin"
   #export PATH="/usr/local/opt/binutils/bin:$PATH"
   export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PATH:$PYENV_ROOT/bin"
   CFLAGS="-I/usr/local/opt/openssl@1.1/include -I/usr/local/opt/readline/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
   LDFLAGS="-L/usr/local/opt/openssl@1.1/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/zlib/lib"
 
@@ -299,21 +294,15 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# __conda_setup="$('/Users/shaananc/.pyenv/versions/miniconda3-latest/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-# if [ $? -eq 0 ]; then
-#     eval "$__conda_setup"
-# else
-#     if [ -f "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh" ]; then
-#         . "/Users/shaananc/.pyenv/versions/miniconda3-latest/etc/profile.d/conda.sh"
-#     else
-#         export PATH="/Users/shaananc/.pyenv/versions/miniconda3-latest/bin:$PATH"
-#     fi
-# fi
-# unset __conda_setup
-# <<< conda initialize <<<
+
+if [[ "$(uname -s)" == "Linux" ]] && [ -f "$HOME/dotfiles/scripts/systemd-helpers.zsh" ]; then
+  if (( $+functions[zsh-defer] )); then
+    zsh-defer source "$HOME/dotfiles/scripts/systemd-helpers.zsh"
+  else
+    source "$HOME/dotfiles/scripts/systemd-helpers.zsh"
+  fi
+fi
 
 if command -v atuin >/dev/null 2>&1; then
-eval "$(atuin init zsh)"
+  eval "$(atuin init zsh)"
 fi
